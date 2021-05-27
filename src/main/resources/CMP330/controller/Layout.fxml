@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="591.0" style="-fx-background-color: #ebebeb#ebebeb;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CMP330.controller.LayoutController">
+   <children>
+      <SplitPane dividerPositions="0.2937181663837012" prefHeight="392.0" prefWidth="591.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <SplitPane dividerPositions="0.18041237113402062, 0.8015463917525774" orientation="VERTICAL" prefHeight="390.0" prefWidth="105.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane>
+                           <children>
+                              <Label layoutX="78.0" layoutY="14.0" text="Hi" />
+                              <Label fx:id="lblUser" layoutX="65.0" layoutY="31.0" text="Name">
+                                 <font>
+                                    <Font size="17.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Button fx:id="navDash" layoutX="45.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Dashboard" textFill="#0022ff" underline="true">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font></Button>
+                              <Button fx:id="navCompleted" layoutX="46.0" layoutY="28.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Completed">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </Button>
+                              <Button fx:id="navProjects" layoutX="52.0" layoutY="55.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Projects">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </Button>
+                              <Button fx:id="navTasks" layoutX="59.0" layoutY="82.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Tasks">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </Button>
+                              <Button fx:id="navCustomers" layoutX="46.0" layoutY="109.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Customers">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </Button>
+                              <Button fx:id="navInvoices" layoutX="53.0" layoutY="136.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Invoices">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </Button>
+                              <Button fx:id="navUsers" layoutX="59.0" layoutY="163.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Users">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </Button>
+                              <Button fx:id="navLogs" layoutX="61.0" layoutY="190.0" mnemonicParsing="false" style="-fx-background-color: #fffff;" text="Logs ">
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </Button>
+                           </children></AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Button fx:id="btnLogout" layoutX="55.0" layoutY="23.0" mnemonicParsing="false" onAction="#logoutUser" text="Logout" />
+                           </children></AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+          <AnchorPane fx:id="mainContent" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

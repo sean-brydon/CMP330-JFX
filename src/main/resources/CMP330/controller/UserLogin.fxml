@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="591.0" style="-fx-background-color: #ebebeb#ebebeb;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CMP330.controller.LoginController">
+   <Circle fill="DODGERBLUE" layoutX="42.0" layoutY="-8.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+   <AnchorPane layoutX="44.0" layoutY="43.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="317.0" prefWidth="506.0" style="-fx-background-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10; -fx-background-color: #fcfafa#fcfafa;">
+      <effect>
+         <DropShadow blurType="ONE_PASS_BOX" height="36.18" radius="28.215000000000003" spread="0.29" width="78.68">
+            <color>
+               <Color opacity="0.27586206793785095" />
+            </color></DropShadow>
+      </effect>
+      <cursor>
+         <Cursor fx:constant="DEFAULT" />
+      </cursor>
+      <VBox layoutX="124.0" prefHeight="317.0" prefWidth="259.0">
+         <VBox prefHeight="79.0" prefWidth="259.0" />
+         <Label text="Username">
+            <VBox.margin>
+               <Insets left="30.0" />
+            </VBox.margin>
+         </Label>
+         <TextField fx:id="inpUsername" promptText="Username">
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" top="10.0" />
+            </VBox.margin>
+         </TextField>
+         <Label text="Password">
+            <VBox.margin>
+               <Insets left="30.0" top="15.0" />
+            </VBox.margin>
+         </Label>
+         <PasswordField fx:id="inpPassword" promptText="Password">
+            <VBox.margin>
+               <Insets left="30.0" right="30.0" top="10.0" />
+            </VBox.margin>
+         </PasswordField>
+         <Label fx:id="lblErrorMessage" textAlignment="CENTER" textFill="RED">
+            <VBox.margin>
+               <Insets left="75.0" />
+            </VBox.margin>
+         </Label>
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+               <Button fx:id="btnSignup" mnemonicParsing="false" onAction="#sendToRegister" text="Signup">
+                  <HBox.margin>
+                     <Insets left="75.0" />
+                  </HBox.margin>
+               </Button>
+               <Button fx:id="bntLogin" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#loginUser" text="Login">
+                  <HBox.margin>
+                     <Insets left="5.0" />
+                  </HBox.margin>
+               </Button>
+            </children>
+         </HBox>
+      </VBox>
+   </AnchorPane>
+</AnchorPane>
