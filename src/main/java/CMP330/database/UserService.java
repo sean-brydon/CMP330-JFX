@@ -25,6 +25,7 @@ public class UserService {
      * @return User
      * @throws SQLException
      */
+    // This was used in testing with the signup page (doesnt get used inthe project)
     public User createUser(String username, String password, String email) throws Exception {
         // Get the current time as a string
         String currentTime = date.customDateFormat(DateFns.DateFormatOptions.Default);
@@ -41,6 +42,17 @@ public class UserService {
         return newUser;
     }
 
+    // Create
+
+    public User create(User user){
+        try{
+            db.getUserDao().create(user);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
     /**
      * Login the user
      * @param username
@@ -79,5 +91,14 @@ public class UserService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public User update(User updatedUser) {
+        try{
+            db.getUserDao().update(user);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return updatedUser;
     }
 }

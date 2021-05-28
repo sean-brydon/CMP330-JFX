@@ -27,6 +27,27 @@ public class User {
     @DatabaseField(canBeNull = false)
     private String role;
 
+    public static USER_ROLES[] allRoles = {USER_ROLES.RESEARCHER,USER_ROLES.HRESEARCHER,USER_ROLES.OFFICE_ADMIN,USER_ROLES.SYS_ADMIN};
+
+    public enum USER_ROLES {
+        RESEARCHER("Researcher"),
+        HRESEARCHER("Head Researcher"),
+        OFFICE_ADMIN("Office Admin"),
+        SYS_ADMIN("System Admin");
+
+        private String role;
+
+        USER_ROLES(String userrole) {
+            this.role = userrole;
+        }
+
+        public String getRole() {
+            return role;
+        }
+    }
+
+
+
     User() {
 
     }

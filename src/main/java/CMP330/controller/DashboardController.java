@@ -196,7 +196,7 @@ public class DashboardController extends LayoutController {
         inpPStatus.setVisible(true);
 
         // Set Editable based on roles
-        if (userRole.equals("SYSADMIN") || userRole.equals("HEAD_RESEARCHER")) {
+        if (userRole.equals(User.USER_ROLES.SYS_ADMIN) || userRole.equals(User.USER_ROLES.HRESEARCHER)) {
             inpPTitle.setDisable(false);
             inpPStatus.setDisable(false);
             inpPCustomer.setDisable(false);
@@ -204,7 +204,7 @@ public class DashboardController extends LayoutController {
             inpPResearcher.setDisable(false);
             inpPStatus.getItems().add(Project.PROJECT_STATUS.COMPLETED.getStatus());
 
-        } else if (userRole.equals("OFFICE_ADMIN")) {
+        } else if (userRole.equals(User.USER_ROLES.OFFICE_ADMIN)) {
             inpPTitle.setDisable(false);
             inpPStatus.setDisable(false);
             inpPCustomer.setDisable(false);
