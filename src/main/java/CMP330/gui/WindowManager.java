@@ -29,7 +29,9 @@ public class WindowManager {
         APP_LAYOUT("../controller/Layout.fxml"),
         // ---- Main Nav Screens
         USER_DASHBOARD_SCREEN("../controller/UserDashboard.fxml"),
-        USER_MANAGEMENT_SCREEN("../controller/UserManagment.fxml");
+        USER_MANAGEMENT_SCREEN("../controller/UserManagment.fxml"),
+        CUSTOMER_MANAGEMENT_SCREEN("../controller/Customers.fxml"),
+        PROJECT_MANAGEMENT_SCREEN("../controller/Projects.fxml");
 
         private String sceneName;
 

@@ -27,7 +27,6 @@ public class Customer {
 
     @DatabaseField(canBeNull = false)
     private String email;
-    private int id;
 
     Customer() {
 
@@ -44,7 +43,7 @@ public class Customer {
     }
 
     public Customer(int id, String createdAt, String updatedAt, String address, String postcode, String email, String name) {
-        this.id = id;
+        this.customerId = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.address = address;

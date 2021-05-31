@@ -54,4 +54,13 @@ public class CustomerService {
         }
         return updatedCustomer;
     }
+
+    public Customer findOneByName(String customer) {
+        try{
+            return db.getCustomerDao().queryBuilder().where().eq("name",customer).queryForFirst();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

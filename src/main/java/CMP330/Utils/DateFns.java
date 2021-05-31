@@ -4,17 +4,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateFns {
-    public enum DateFormatOptions{
+    public enum DateFormatOptions {
         Default,
         WithTime
     }
-    public static String customDateFormat(DateFormatOptions options){
-        SimpleDateFormat formatter= null;
-        if(options.equals(DateFormatOptions.Default)){
-            formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-        }else{
-            formatter = new SimpleDateFormat("yyyy-MM-dd");
-        }
+
+    public static String customDateFormat(DateFormatOptions options) {
+        SimpleDateFormat formatter = null;
+
+        formatter = new SimpleDateFormat("dd-MM-YYYY");
+
         Date date = new Date(System.currentTimeMillis());
 
         return formatter.format(date);

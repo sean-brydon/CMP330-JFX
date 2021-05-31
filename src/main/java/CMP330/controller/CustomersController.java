@@ -22,15 +22,10 @@ import java.util.Map;
 
 public class CustomersController extends LayoutController {
 
-    // [x] Get all users
-    // [] Delete button
-    // [] Edit button -> Takes user to a form
-    // [] Create New User -> Takes user to a form
-
     @FXML
     TableView listOfCustomers;
     @FXML
-    Button btnDelUser;
+    Button btnDelCustomer;
     @FXML
     AnchorPane anchorForm;
     @FXML
@@ -38,11 +33,13 @@ public class CustomersController extends LayoutController {
     @FXML
     Label lblUserManagement;
     @FXML
-    TextField inpUsername;
+    TextField inpName;
     @FXML
     TextField inpEmail;
     @FXML
-    TextField inpPassword;
+    TextField inpPostcode;
+    @FXML
+    TextField inpAddress;
 
     @Inject
     CustomerService customerService; // This could be removed if the LayoutController userService was set to protected however
@@ -57,14 +54,12 @@ public class CustomersController extends LayoutController {
 
     @FXML
     @Override
-    public void initialize() throws IOException {
+    public void initialize() {
         this.currentUser = UserSingleton.getInstance().getUser();
 
-        // Get all users on load and populate list
-        // Storing users to state to allow filtering of the whole array - Useful when passing the UID to a new form.
+        // Get all Customers on load and populate list
         populateTable();
-        btnDelUser.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
-        // Add items roles to the edit/create new box
+        btnDelCustomer.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
 
     }
 
@@ -78,7 +73,7 @@ public class CustomersController extends LayoutController {
         this.allCustomers = this.customerService.getAllCustomers();
         // Creat columns for users
         TableColumn<Map, String> idColumn = new TableColumn<>("id");
-        idColumn.setCellValueFactory(new MapValueFactory<>("cutomerId"));
+        idColumn.setCellValueFactory(new MapValueFactory<>("customerId"));
 
         TableColumn<Map, String> nameColumn = new TableColumn<>("name");
         nameColumn.setCellValueFactory(new MapValueFactory<>("name"));
@@ -106,7 +101,7 @@ public class CustomersController extends LayoutController {
         this.allCustomers.forEach(customer -> {
             Map<String, Object> customerObj = new HashMap<>();
             // Forces int to be string to be converted back to int
-            customerObj.put("id", String.valueOf(customer.getCustomerId()));
+            customerObj.put("customerId", String.valueOf(customer.getCustomerId()));
             customerObj.put("name", customer.getName());
             customerObj.put("email", customer.getEmail());
             customerObj.put("postcode", customer.getPostcode());
@@ -119,45 +114,46 @@ public class CustomersController extends LayoutController {
     }
 
     @FXML
-    private void deleteUser() {
+    private void deleteCustomer() {
         Customer customer = getCustomerFromSelection();
 
         this.customerService.delete(customer);
 
 
-        populateTable();
+        windowManager.setRoot(WindowManager.SCENES.CUSTOMER_MANAGEMENT_SCREEN);
+
     }
 
 
     @FXML
-    private void editSelectedUser() {
+    private void editSelectedCustomer() {
         this.selectedCustomer = getCustomerFromSelection();
         this.editState = true;
         this.anchorForm.setVisible(true);
         this.anchorTable.setVisible(false);
-        lblUserManagement.setText("Edit User");
+        lblUserManagement.setText("Edit Customer");
 
         // Populate fields
-        inpUsername.setText(this.selectedCustomer.getName());
+        inpName.setText(this.selectedCustomer.getName());
         inpEmail.setText(this.selectedCustomer.getEmail());
-        inpPassword.setText(this.selectedCustomer.getPostcode());
+        inpPostcode.setText(this.selectedCustomer.getPostcode());
+        inpAddress.setText(this.selectedCustomer.getAddress());
 
     }
 
     @FXML
-    private void createNewUser() {
-        this.selectedCustomer = getCustomerFromSelection();
+    private void createNewCustomer() {
         this.editState = false;
         this.anchorForm.setVisible(true);
         this.anchorTable.setVisible(false);
-        lblUserManagement.setText("Create User");
+        lblUserManagement.setText("Create Customer");
     }
 
     private Customer getCustomerFromSelection() {
         TableView.TableViewSelectionModel selectionModel = this.listOfCustomers.getSelectionModel();
         HashMap<String, String> selected = (HashMap<String, String>) selectionModel.getSelectedItem();
 
-        Customer customer = new Customer(parseIntOrNull(selected.get("id")),
+        Customer customer = new Customer(parseIntOrNull(selected.get("customerId")),
                 selected.get("createdAt"),
                 DateFns.customDateFormat(DateFns.DateFormatOptions.Default),
                 selected.get("address"),
@@ -173,19 +169,21 @@ public class CustomersController extends LayoutController {
         if (this.editState) {
             Customer updatedCustomer = this.selectedCustomer;
             updatedCustomer.setEmail(inpEmail.getText());
-            updatedCustomer.setName(inpUsername.getText());
+            updatedCustomer.setName(inpName.getText());
+            updatedCustomer.setPostcode(inpPostcode.getText());
+            updatedCustomer.setPostcode(inpAddress.getText());
 
             updatedCustomer.setUpdatedAt(DateFns.customDateFormat(DateFns.DateFormatOptions.Default));
             this.customerService.update(updatedCustomer);
         } else {
             String date = DateFns.customDateFormat(DateFns.DateFormatOptions.Default);
-
-//            this.customerService.create(newUser);
+            Customer newCustomer = new Customer(date,date,inpAddress.getText(),inpPostcode.getText(),inpEmail.getText(),inpName.getText());
+            this.customerService.create(newCustomer);
         }
         this.anchorForm.setVisible(false);
         this.anchorTable.setVisible(true);
 
-        windowManager.setRoot(WindowManager.SCENES.USER_MANAGEMENT_SCREEN);
+        windowManager.setRoot(WindowManager.SCENES.CUSTOMER_MANAGEMENT_SCREEN);
     }
 
     // Typing this is pretty difficult as the hashmap should be string,object. To get around this we foce string string and convert the ID

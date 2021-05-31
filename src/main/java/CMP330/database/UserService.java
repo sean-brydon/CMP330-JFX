@@ -101,4 +101,14 @@ public class UserService {
         }
         return updatedUser;
     }
+
+
+    public User findOneByUsername(String username) {
+        try{
+            return db.getUserDao().queryBuilder().where().eq("name",username).queryForFirst();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
