@@ -58,6 +58,20 @@ public class TaskService {
     }
     return task;
   }
+
+  /**
+   * Deletes the task by passing in task
+   * @param task
+   * @return
+   */
+  public void delete(Tasks task){
+    try{
+      db.getTaskDao().delete(task);
+    }catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+  }
+
   /**
    * Get tasks by user
    * @param user
@@ -75,5 +89,28 @@ public class TaskService {
     return tasks;
   }
 
+
+  public List<Tasks> getAllTasks()  {
+    List<Tasks> tasks = null;
+    try{
+      tasks = db.getTaskDao().queryForAll();
+    }catch (SQLException e){
+      e.printStackTrace();
+    }
+
+    return tasks;
+  }
+
+  public List<Tasks> getAllCompletedTasks() {
+    List<Tasks> tasks = null;
+    try{
+      PreparedQuery<Tasks> statement = db.getTaskDao().queryBuilder().where().eq("status", "Completed").prepare();
+      tasks = db.getTaskDao().query(statement);
+    }catch (SQLException e){
+      e.printStackTrace();
+    }
+
+    return tasks;
+  }
 
 }

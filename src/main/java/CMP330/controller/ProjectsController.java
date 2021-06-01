@@ -17,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -192,17 +191,6 @@ public class ProjectsController extends LayoutController {
 
     }
 
-    private void addItemsToComboBox() {
-        for (Project.PROJECT_STATUS status : Project.PROJECT_STATUS_ARRAY
-        ) {
-            this.inpStatus.getItems().add(status.getStatus());
-        }
-        for (User user : this.userService.getAllUsers()
-        ) {
-            this.inpHeadResearcher.getItems().add(user.getName());
-            this.inpResearcher.getItems().add(user.getName());
-        }
-    }
 
     private Project getProjectFromSelectedValue() {
         TableView.TableViewSelectionModel selectionModel = this.listOfCustomers.getSelectionModel();

@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "tblInvoices")
 public class Invoices {
     @DatabaseField(generatedId = true)
-    private long projectId;
+    private int id;
 
     @DatabaseField(canBeNull = false)
 
@@ -40,8 +40,18 @@ public class Invoices {
         this.paymentSchedule = paymentSchedule;
     }
 
-    public long getProjectId() {
-        return projectId;
+    public Invoices(int id, String createdAt, String updatedAt, Customer customerId, Float amountOwed, Float amountPaid, String paymentSchedule) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.customerId = customerId;
+        this.amountOwed = amountOwed;
+        this.amountPaid = amountPaid;
+        this.paymentSchedule = paymentSchedule;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getCreatedAt() {

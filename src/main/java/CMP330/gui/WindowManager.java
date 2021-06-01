@@ -31,7 +31,9 @@ public class WindowManager {
         USER_DASHBOARD_SCREEN("../controller/UserDashboard.fxml"),
         USER_MANAGEMENT_SCREEN("../controller/UserManagment.fxml"),
         CUSTOMER_MANAGEMENT_SCREEN("../controller/Customers.fxml"),
-        PROJECT_MANAGEMENT_SCREEN("../controller/Projects.fxml");
+        PROJECT_MANAGEMENT_SCREEN("../controller/Projects.fxml"),
+        TASK_MANAGEMENT_SCREEN("../controller/Tasks.fxml"),
+        COMPLETED_SCREEN("../controller/Completed.fxml");
 
         private String sceneName;
 

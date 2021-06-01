@@ -1,62 +1,62 @@
 package CMP330.database;
 
 import CMP330.Utils.DateFns;
-import CMP330.model.Customer;
+import CMP330.model.Invoices;
 import com.google.inject.Inject;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class CustomerService {
+public class InvoiceService {
     private final Database db = new Database();
     private final DateFns date =  new DateFns();
-    private Customer customer;
+    private Invoices Invoices;
 
     @Inject
-    public CustomerService() {
+    public InvoiceService() {
 
     }
 
     // Create
-    public Customer create(Customer customer){
+    public Invoices create(Invoices invoices){
         try{
-            db.getCustomerDao().create(customer);
+            db.getInvoiceDao().create(invoices);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return customer;
+        return invoices;
     }
 
-    public List<Customer> getAllCustomers()  {
+    public List<Invoices> getAllInvoicess()  {
         try{
-            return db.getCustomerDao().queryForAll();
+            return db.getInvoiceDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public void delete(Customer customer) {
+    public void delete(Invoices Invoices) {
         try{
-            db.getCustomerDao().delete(customer);
+            db.getInvoiceDao().delete(Invoices);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Customer update(Customer updatedCustomer) {
+    public Invoices update(Invoices updatedInvoices) {
         try{
-            db.getCustomerDao().update(customer);
+            db.getInvoiceDao().update(Invoices);
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return updatedCustomer;
+        return updatedInvoices;
     }
 
-    public Customer findOneByName(String customer) {
+    public Invoices findOneByName(String Invoices) {
         try{
-            return db.getCustomerDao().queryBuilder().where().eq("name",customer).queryForFirst();
+            return db.getInvoiceDao().queryBuilder().where().eq("name",Invoices).queryForFirst();
         }catch (SQLException e){
             e.printStackTrace();
         }

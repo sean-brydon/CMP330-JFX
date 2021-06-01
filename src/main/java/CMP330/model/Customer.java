@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Customer {
 
     @DatabaseField(generatedId = true)
-    private long customerId;
+    private long id;
 
     @DatabaseField(canBeNull = false)
     private String createdAt;
@@ -43,7 +43,7 @@ public class Customer {
     }
 
     public Customer(int id, String createdAt, String updatedAt, String address, String postcode, String email, String name) {
-        this.customerId = id;
+        this.id = id;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.address = address;
@@ -61,11 +61,11 @@ public class Customer {
     }
 
     public long getCustomerId() {
-        return customerId;
+        return id;
     }
 
     public void setCustomerId(long customerId) {
-        this.customerId = customerId;
+        this.id = customerId;
     }
 
     public String getCreatedAt() {

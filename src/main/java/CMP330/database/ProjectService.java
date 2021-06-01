@@ -8,7 +8,6 @@ import CMP330.model.User;
 import com.j256.ormlite.stmt.PreparedQuery;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -76,6 +75,31 @@ public class ProjectService {
 
         return projects;
     }
+
+    public Project getProjectsByTitle(String title)  {
+        Project project = null;
+        try {
+            PreparedQuery<Project> statement = db.getProjectDao().queryBuilder().where().eq("title",title).prepare();
+            project = db.getProjectDao().queryForFirst(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return project;
+    }
+
+    public List<Project> getAllCompletedProjects()  {
+        List<Project> projects = null;
+        try {
+            PreparedQuery<Project> statement = db.getProjectDao().queryBuilder().where().eq("status","Completed").prepare();
+            projects = db.getProjectDao().query(statement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return projects;
+    }
+
 
     public List<Project> getAllProjects() {
         try {

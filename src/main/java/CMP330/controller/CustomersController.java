@@ -3,7 +3,6 @@ package CMP330.controller;
 import CMP330.Utils.DateFns;
 import CMP330.Utils.UserSingleton;
 import CMP330.database.CustomerService;
-import CMP330.database.UserService;
 import CMP330.gui.WindowManager;
 import CMP330.model.Customer;
 import CMP330.model.User;
@@ -15,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

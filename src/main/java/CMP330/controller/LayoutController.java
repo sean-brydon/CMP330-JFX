@@ -89,7 +89,7 @@ public abstract class LayoutController {
     private void navCompleted(){
         Stage stage = (Stage) navCompleted.getScene().getWindow();
         stage.close();
-        windowManager.setRoot(WindowManager.SCENES.USER_DASHBOARD_SCREEN);
+        windowManager.setRoot(WindowManager.SCENES.COMPLETED_SCREEN);
     }
     @FXML
     private void navProjects(){
@@ -101,7 +101,7 @@ public abstract class LayoutController {
     private void navTasks(){
         Stage stage = (Stage) navTasks.getScene().getWindow();
         stage.close();
-        windowManager.setRoot(WindowManager.SCENES.USER_DASHBOARD_SCREEN);
+        windowManager.setRoot(WindowManager.SCENES.TASK_MANAGEMENT_SCREEN);
     }
 
     @FXML
