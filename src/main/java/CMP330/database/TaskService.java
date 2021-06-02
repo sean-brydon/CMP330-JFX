@@ -34,6 +34,8 @@ public class TaskService {
    */
   public Tasks createTask(Tasks task){
     try {
+      int numOfAssigned = this.getTasks(task.getAssignedToId()).size();
+      if(numOfAssigned == 3) return null;
       db.getTaskDao().create(task);
     } catch (SQLException throwables) {
       throwables.printStackTrace();
@@ -51,11 +53,15 @@ public class TaskService {
    */
   public Tasks updateTask(Tasks task){
     try{
+      int numOfAssigned = this.getTasks(task.getAssignedToId()).size();
+      if(numOfAssigned == 3) return null;
       db.getTaskDao().update(task);
     }catch (SQLException throwables) {
       throwables.printStackTrace();
       return null;
     }
+    AuditLogService.Logger("Update Task " + task.getTask(), UserSingleton.getInstance().getUser());
+
     return task;
   }
 
@@ -70,6 +76,8 @@ public class TaskService {
     }catch (SQLException throwables) {
       throwables.printStackTrace();
     }
+    AuditLogService.Logger("Deleted Task " + task.getTask(), UserSingleton.getInstance().getUser());
+
   }
 
   /**
@@ -85,6 +93,7 @@ public class TaskService {
     }catch (SQLException e){
       e.printStackTrace();
     }
+    AuditLogService.Logger("Got all tasks assigned to user "+ user.getName(), UserSingleton.getInstance().getUser());
 
     return tasks;
   }
@@ -97,6 +106,7 @@ public class TaskService {
     }catch (SQLException e){
       e.printStackTrace();
     }
+    AuditLogService.Logger("Got all tasks", UserSingleton.getInstance().getUser());
 
     return tasks;
   }
@@ -109,6 +119,7 @@ public class TaskService {
     }catch (SQLException e){
       e.printStackTrace();
     }
+    AuditLogService.Logger("Got all completed tasks", UserSingleton.getInstance().getUser());
 
     return tasks;
   }

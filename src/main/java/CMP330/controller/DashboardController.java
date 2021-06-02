@@ -137,17 +137,14 @@ public class DashboardController extends LayoutController {
     //region Projects
     private void populateProjects(int projectPos) {
         // Load all projects from project service
-        try {
-            this.projects = this.projectService.getProjects(user);
-        } catch (SQLException e) {
-            // Projects is null this there is no data to display
-            e.printStackTrace();
+        this.projects = this.projectService.getAllProjects();
+
+
+
+        if (this.projects.size() > 0) {
+            this.currentProject = ItemControlls.currentItem(this.projects, 0);
+            displayProjects(currentProject);
         }
-
-        this.currentProject = ItemControlls.currentItem(this.projects, 0);
-
-        if (this.projects.size() > 0) displayProjects(currentProject);
-
     }
 
     // Seperated this function to call when the user clicks a button to change project.

@@ -9,7 +9,6 @@ import CMP330.model.Customer;
 import CMP330.model.Invoices;
 import CMP330.model.User;
 import com.google.inject.Inject;
-import com.j256.ormlite.stmt.query.In;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,7 +25,11 @@ public class InvoicesController extends LayoutController {
     @FXML
     TableView listOfInvoices;
     @FXML
-    Button btnDelCustomer;
+    Button btnDel;
+    @FXML
+    Button btnEdit;
+    @FXML
+    Button btnCreate;
     @FXML
     AnchorPane anchorForm;
     @FXML
@@ -61,8 +64,17 @@ public class InvoicesController extends LayoutController {
 
         // Get all Customers on load and populate list
         populateTable();
+        btnCreate.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        btnDel.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        btnEdit.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
 
     }
+
+    private Boolean permissionCheck(User.USER_ROLES requiredRole) {
+        String userRole = currentUser.getRole();
+        return userRole.equals(requiredRole.getRole());
+    }
+
 
     private void populateTable() {
         // This is moved here so we can Prefetch the data easily when we preform any CRUD actions on the user
@@ -72,13 +84,13 @@ public class InvoicesController extends LayoutController {
         idColumn.setCellValueFactory(new MapValueFactory<>("id"));
 
         TableColumn<Map, String> customerColumn = new TableColumn<>("customer");
-        customerColumn.setCellValueFactory(new MapValueFactory<>("Customer"));
+        customerColumn.setCellValueFactory(new MapValueFactory<>("customer"));
 
         TableColumn<Map, String> amountOwedColumn = new TableColumn<>("amountOwed");
-        amountOwedColumn.setCellValueFactory(new MapValueFactory<>("Amount Owed"));
+        amountOwedColumn.setCellValueFactory(new MapValueFactory<>("amountOwed"));
 
         TableColumn<Map, String> amountPaidColumn = new TableColumn<>("amountPaid");
-        amountPaidColumn.setCellValueFactory(new MapValueFactory<>("Amount Paid"));
+        amountPaidColumn.setCellValueFactory(new MapValueFactory<>("amountPaid"));
 
         ;
         TableColumn<Map, String> createdAt = new TableColumn<>("createdAt");
@@ -94,10 +106,10 @@ public class InvoicesController extends LayoutController {
         this.allInvoices.forEach(invoice -> {
             Map<String, Object> customerObj = new HashMap<>();
             // Forces int to be string to be converted back to int
-            customerObj.put("id", String.valueOf(invoice.getCustomerId()));
+            customerObj.put("id", String.valueOf(invoice.getId()));
             customerObj.put("customer", invoice.getCustomerId().getName());
-            customerObj.put("amountOwed", invoice.getAmountOwed());
-            customerObj.put("amountPaid", invoice.getAmountPaid());
+            customerObj.put("amountOwed", String.valueOf(invoice.getAmountOwed()));
+            customerObj.put("amountPaid", String.valueOf(invoice.getAmountPaid()));
             customerObj.put("createdAt", invoice.getCreatedAt());
             items.add(customerObj);
         });
@@ -127,12 +139,12 @@ public class InvoicesController extends LayoutController {
         lblUserManagement.setText("Edit Customer");
 
         // Populate fields
-        inpAmountOwed.setText(this.selectedInvoice.getAmountOwed().toString());
-        inpAmountPaid.setText(this.selectedInvoice.getAmountPaid().toString());
+        inpAmountOwed.setText(String.valueOf(this.selectedInvoice.getAmountOwed()));
+        inpAmountPaid.setText(String.valueOf(this.selectedInvoice.getAmountPaid()));
         inpSchedule.setText("Monthly");
 
        inpCustomers.getItems().add(this.selectedInvoice.getCustomerId().getName());
-
+       inpCustomers.getSelectionModel().selectFirst();
     }
 
     @FXML
@@ -189,7 +201,7 @@ public class InvoicesController extends LayoutController {
         this.anchorForm.setVisible(false);
         this.anchorTable.setVisible(true);
 
-        windowManager.setRoot(WindowManager.SCENES.CUSTOMER_MANAGEMENT_SCREEN);
+        windowManager.setRoot(WindowManager.SCENES.INVOICE_MANAGEMENT_SCREEN);
     }
 
     // Typing this is pretty difficult as the hashmap should be string,object. To get around this we foce string string and convert the ID

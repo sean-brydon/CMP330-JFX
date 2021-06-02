@@ -92,13 +92,13 @@
                         <AnchorPane fx:id="anchorTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="listOfInvoices" layoutX="33.0" layoutY="45.0" prefHeight="311.0" prefWidth="448.0" />
-                        <Button fx:id="btnDelCustomer" layoutX="34.0" layoutY="376.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="33.0" prefWidth="132.0" text="Delete Invoice" />
-                        <Button fx:id="btnEditUser" layoutX="191.0" layoutY="376.0" mnemonicParsing="false" onAction="#editSelectedCustomer" prefHeight="33.0" prefWidth="132.0" text="Edit Invoice" />
-                        <Button fx:id="btnCreateUser" layoutX="349.0" layoutY="376.0" mnemonicParsing="false" onAction="#createNewCustomer" prefHeight="33.0" prefWidth="132.0" text="Create Invoice" />
+                        <Button fx:id="btnDel" layoutX="34.0" layoutY="376.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="33.0" prefWidth="132.0" text="Delete Invoice" />
+                        <Button fx:id="btnEdit" layoutX="191.0" layoutY="376.0" mnemonicParsing="false" onAction="#editSelectedCustomer" prefHeight="33.0" prefWidth="132.0" text="Edit Invoice" />
+                        <Button fx:id="btnCreate" layoutX="349.0" layoutY="376.0" mnemonicParsing="false" onAction="#createNewCustomer" prefHeight="33.0" prefWidth="132.0" text="Create Invoice" />
                      </children></AnchorPane>
-                  <AnchorPane fx:id="anchorForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;">
+                  <AnchorPane fx:id="anchorForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;" visible="false">
                      <children>
-                        <TextField fx:id="inpTask" layoutX="211.0" layoutY="136.0" promptText="Amount" />
+                        <TextField fx:id="inpAmountOwed" layoutX="211.0" layoutY="136.0" promptText="Amount" />
                         <Label fx:id="lblUserManagement" layoutX="234.0" layoutY="24.0" text="Edit Project" textAlignment="CENTER">
                            <font>
                               <Font size="21.0" />
@@ -116,13 +116,13 @@
                         </Label>
                         <Button fx:id="btnSave" layoutX="255.0" layoutY="302.0" mnemonicParsing="false" onAction="#onSaveEvent" text="Save" />
                         <ComboBox fx:id="inpCustomers" layoutX="212.0" layoutY="82.0" prefWidth="150.0" />
-                        <TextField fx:id="inpTask1" layoutX="211.0" layoutY="195.0" promptText="Amount" />
+                        <TextField fx:id="inpAmountPaid" layoutX="211.0" layoutY="195.0" promptText="Amount" />
                         <Label layoutX="215.0" layoutY="176.0" text="Paid">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="inpTask11" editable="false" layoutX="211.0" layoutY="256.0" text="Monthly" />
+                        <TextField fx:id="inpSchedule" editable="false" layoutX="211.0" layoutY="256.0" text="Monthly" />
                         <Label layoutX="215.0" layoutY="237.0" text="Payement Schedule">
                            <font>
                               <Font size="13.0" />

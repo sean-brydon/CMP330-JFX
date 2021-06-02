@@ -1,6 +1,7 @@
 package CMP330.database;
 
 import CMP330.Utils.DateFns;
+import CMP330.Utils.UserSingleton;
 import CMP330.model.Invoices;
 import com.google.inject.Inject;
 
@@ -24,6 +25,7 @@ public class InvoiceService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Created a new invoice for" + invoices.getCustomerId().getName(), UserSingleton.getInstance().getUser());
 
         return invoices;
     }
@@ -34,6 +36,8 @@ public class InvoiceService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Fetched All Invoices", UserSingleton.getInstance().getUser());
+
         return null;
     }
 
@@ -43,6 +47,8 @@ public class InvoiceService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Deleted invoice for customer" + Invoices.getCustomerId().getName(), UserSingleton.getInstance().getUser());
+
     }
 
     public Invoices update(Invoices updatedInvoices) {
@@ -51,15 +57,10 @@ public class InvoiceService {
         }catch (SQLException e){
             e.printStackTrace();
         }
+        AuditLogService.Logger("Updated invoice for customer" + updatedInvoices.getCustomerId().getName(), UserSingleton.getInstance().getUser());
+
         return updatedInvoices;
+
     }
 
-    public Invoices findOneByName(String Invoices) {
-        try{
-            return db.getInvoiceDao().queryBuilder().where().eq("name",Invoices).queryForFirst();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

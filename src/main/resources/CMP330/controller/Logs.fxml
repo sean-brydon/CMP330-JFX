@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: #ebebeb;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CMP330.controller.CompletedController">
+<AnchorPane style="-fx-background-color: #ebebeb;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CMP330.controller.LogsController">
     <children>
         <SplitPane dividerPositions="0.22961104140526975" prefHeight="488.0" prefWidth="799.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-30.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -36,13 +36,10 @@
                                                 <Font size="13.0" />
                                             </font>
                                         </Button>
-                                        <Button fx:id="navCompleted" layoutX="46.0" layoutY="28.0" mnemonicParsing="false" onAction="#navCompleted" style="-fx-background-color: #ebebeb;" text="Completed" textFill="#5100ff" underline="true">
+                                        <Button fx:id="navCompleted" layoutX="46.0" layoutY="28.0" mnemonicParsing="false" onAction="#navCompleted" style="-fx-background-color: #ebebeb;" text="Completed">
                                             <effect>
                                                 <ColorAdjust />
                                             </effect>
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
                                         </Button>
                                         <Button fx:id="navProjects" layoutX="52.0" layoutY="55.0" mnemonicParsing="false" onAction="#navProjects" style="-fx-background-color: #ebebeb;" text="Projects">
                                             <effect>
@@ -69,10 +66,13 @@
                                                 <ColorAdjust />
                                             </effect>
                                         </Button>
-                                        <Button fx:id="navLogs" layoutX="61.0" layoutY="190.0" mnemonicParsing="false" onAction="#navLogs" style="-fx-background-color: #ebebeb;" text="Logs ">
+                                        <Button fx:id="navLogs" layoutX="61.0" layoutY="190.0" mnemonicParsing="false" onAction="#navLogs" style="-fx-background-color: #ebebeb;" text="Logs " textFill="#1500ff" underline="true">
                                             <effect>
                                                 <ColorAdjust />
                                             </effect>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                                         </Button>
                                     </children>
                                 </AnchorPane>
@@ -89,8 +89,7 @@
                     <children>
                         <AnchorPane fx:id="anchorTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TableView fx:id="listOfProjects" layoutX="33.0" layoutY="45.0" prefHeight="188.0" prefWidth="516.0" />
-                        <TableView fx:id="listOfTasks" layoutX="33.0" layoutY="258.0" prefHeight="188.0" prefWidth="516.0" />
+                        <TableView fx:id="listOfLogs" layoutX="33.0" layoutY="45.0" prefHeight="311.0" prefWidth="448.0" />
                      </children></AnchorPane>
                     </children>
                 </AnchorPane>

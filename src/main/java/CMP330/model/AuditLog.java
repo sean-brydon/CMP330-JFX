@@ -5,7 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 public class AuditLog {
     @DatabaseField(generatedId = true)
-    private long auditId;
+    private int auditId;
 
     @DatabaseField(canBeNull = false)
     private String createdAt;
@@ -16,12 +16,6 @@ public class AuditLog {
     @DatabaseField(canBeNull = false)
     private String action;
 
-    @DatabaseField(canBeNull = false)
-    private String oldData;
-
-    @DatabaseField(canBeNull = false)
-    private String newData;
-
     @DatabaseField(canBeNull = false,foreign = true, foreignAutoRefresh=true)
     private User actionByUserId;
 
@@ -29,17 +23,19 @@ public class AuditLog {
 
     }
 
-    public AuditLog(String createdAt, String updatedAt, String action, String oldData, String newData, User actionByUserId) {
+    public AuditLog(String createdAt, String updatedAt, String action, User actionByUserId) {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.action = action;
-        this.oldData = oldData;
-        this.newData = newData;
         this.actionByUserId = actionByUserId;
     }
 
-    public long getAuditId() {
+    public int getAuditId() {
         return auditId;
+    }
+
+    public void setAuditId(int auditId) {
+        this.auditId = auditId;
     }
 
     public String getCreatedAt() {
@@ -64,22 +60,6 @@ public class AuditLog {
 
     public void setAction(String action) {
         this.action = action;
-    }
-
-    public String getOldData() {
-        return oldData;
-    }
-
-    public void setOldData(String oldData) {
-        this.oldData = oldData;
-    }
-
-    public String getNewData() {
-        return newData;
-    }
-
-    public void setNewData(String newData) {
-        this.newData = newData;
     }
 
     public User getActionByUserId() {

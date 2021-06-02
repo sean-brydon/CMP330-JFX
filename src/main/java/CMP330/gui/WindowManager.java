@@ -33,6 +33,8 @@ public class WindowManager {
         CUSTOMER_MANAGEMENT_SCREEN("../controller/Customers.fxml"),
         PROJECT_MANAGEMENT_SCREEN("../controller/Projects.fxml"),
         TASK_MANAGEMENT_SCREEN("../controller/Tasks.fxml"),
+        INVOICE_MANAGEMENT_SCREEN("../controller/Invoices.fxml"),
+        AUDIT_LOG_SCREEN("../controller/Logs.fxml"),
         COMPLETED_SCREEN("../controller/Completed.fxml");
 
         private String sceneName;

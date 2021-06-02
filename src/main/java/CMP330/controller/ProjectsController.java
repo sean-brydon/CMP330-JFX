@@ -151,7 +151,7 @@ public class ProjectsController extends LayoutController {
         this.anchorForm.setVisible(true);
         this.anchorTable.setVisible(false);
         this.inpCustomer.setDisable(true);
-        lblUserManagement.setText("Edit Customer");
+        lblUserManagement.setText("Edit Project");
 
         inpTitle.setText(this.selectedProject.getTitle());
         for (Project.PROJECT_STATUS status : Project.PROJECT_STATUS_ARRAY
@@ -173,7 +173,7 @@ public class ProjectsController extends LayoutController {
         this.editState = false;
         this.anchorForm.setVisible(true);
         this.anchorTable.setVisible(false);
-        lblUserManagement.setText("Create Customer");
+        lblUserManagement.setText("Create Project");
 
         for (Project.PROJECT_STATUS status : Project.PROJECT_STATUS_ARRAY
         ) {

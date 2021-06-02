@@ -25,6 +25,10 @@ public class CustomersController extends LayoutController {
     @FXML
     Button btnDelCustomer;
     @FXML
+    Button btnEditUser;
+    @FXML
+    Button btnCreateUser;
+    @FXML
     AnchorPane anchorForm;
     @FXML
     AnchorPane anchorTable;
@@ -58,6 +62,8 @@ public class CustomersController extends LayoutController {
         // Get all Customers on load and populate list
         populateTable();
         btnDelCustomer.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        btnCreateUser.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        btnEditUser.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
 
     }
 

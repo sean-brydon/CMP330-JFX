@@ -33,11 +33,14 @@ public class ProjectService {
      */
     public Project createProject(Project project) {
         try {
+            int numOfAssigned = this.getProjects(project.getHeadResearcher()).size();
+            if(numOfAssigned == 3) return null;
             db.getProjectDao().create(project);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return null;
         }
+        AuditLogService.Logger("Created a project" + project.getTitle(), UserSingleton.getInstance().getUser());
 
         return project;
     }
@@ -55,6 +58,8 @@ public class ProjectService {
             throwables.printStackTrace();
             return null;
         }
+        AuditLogService.Logger("Updated a project" + project.getTitle(), UserSingleton.getInstance().getUser());
+
         return project;
     }
 
@@ -64,16 +69,16 @@ public class ProjectService {
      * @param user
      * @return
      */
-    public List<Project> getProjects(User user) throws SQLException {
-        List<Project> projects;
+    public List<Project> getProjects(User user) {
         try {
             PreparedQuery<Project> statement = db.getProjectDao().queryBuilder().where().eq(Project.RESEARCHER_COL_NAME, user.getId()).prepare();
-            projects = db.getProjectDao().query(statement);
+            return db.getProjectDao().query(statement);
         } catch (SQLException e) {
-            throw e;
-        }
+            e.printStackTrace();
+            AuditLogService.Logger("Got projects by user" + user.getName(), UserSingleton.getInstance().getUser());
 
-        return projects;
+            return null;
+        }
     }
 
     public Project getProjectsByTitle(String title)  {
@@ -84,6 +89,7 @@ public class ProjectService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Got projects by title" + title, UserSingleton.getInstance().getUser());
 
         return project;
     }
@@ -96,6 +102,7 @@ public class ProjectService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Got all completed projects", UserSingleton.getInstance().getUser());
 
         return projects;
     }
@@ -107,6 +114,7 @@ public class ProjectService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Got all projects", UserSingleton.getInstance().getUser());
 
         return null;
     }
@@ -118,5 +126,7 @@ public class ProjectService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Got deleted project " + project.getTitle(), UserSingleton.getInstance().getUser());
+
     }
 }

@@ -10,7 +10,7 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 
 public class Database {
-    private final static String DATABASE_URL = "jdbc:sqlite:CMP330.db";
+    private final static String DATABASE_URL = "jdbc:sqlite:CMP330_TEST.db";
 
     //    Setup Database access objects
     private Dao<AuditLog, Integer> auditLogDao;

@@ -1,6 +1,7 @@
 package CMP330.database;
 
 import CMP330.Utils.DateFns;
+import CMP330.Utils.UserSingleton;
 import CMP330.model.User;
 import com.google.inject.Inject;
 
@@ -38,6 +39,7 @@ public class UserService {
         }catch (Exception e){
             throw new Exception("This user already exists");
         }
+        AuditLogService.Logger("User created ", newUser);
 
         return newUser;
     }

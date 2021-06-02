@@ -65,19 +65,6 @@ public abstract class LayoutController {
     }
 
 
-    // Navigation
-    private void addStyles(Button button, Boolean underline, Color color) {
-        button.setUnderline(underline);
-        button.setTextFill(color);
-    }
-
-    private void removeStylesFromNav() {
-        Button[] navigationButtons = {navDash, navCompleted, navTasks, navCustomers, navUsers, navLogs, navProjects, navInvoices};
-        for (Button button : navigationButtons) {
-            addStyles(button, false, Color.BLACK);
-        }
-    }
-
     @FXML
     private void navDash(){
         Stage stage = (Stage) navDash.getScene().getWindow();
@@ -114,7 +101,7 @@ public abstract class LayoutController {
     private void navInvoices(){
         Stage stage = (Stage) navInvoices.getScene().getWindow();
         stage.close();
-        windowManager.setRoot(WindowManager.SCENES.USER_DASHBOARD_SCREEN);
+        windowManager.setRoot(WindowManager.SCENES.INVOICE_MANAGEMENT_SCREEN);
     }
 
     @FXML
@@ -127,6 +114,8 @@ public abstract class LayoutController {
     private void navLogs(){
         Stage stage = (Stage) navLogs.getScene().getWindow();
         stage.close();
-        windowManager.setRoot(WindowManager.SCENES.USER_DASHBOARD_SCREEN);
+        if(UserSingleton.getInstance().getUser().getRole().equals(User.USER_ROLES.SYS_ADMIN)){
+            windowManager.setRoot(WindowManager.SCENES.AUDIT_LOG_SCREEN);
+        }
     }
 }

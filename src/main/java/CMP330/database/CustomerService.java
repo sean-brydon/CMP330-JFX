@@ -1,6 +1,7 @@
 package CMP330.database;
 
 import CMP330.Utils.DateFns;
+import CMP330.Utils.UserSingleton;
 import CMP330.model.Customer;
 import com.google.inject.Inject;
 
@@ -17,6 +18,7 @@ public class CustomerService {
 
     }
 
+
     // Create
     public Customer create(Customer customer){
         try{
@@ -24,7 +26,7 @@ public class CustomerService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        AuditLogService.Logger("Customer created"+customer.getName(), UserSingleton.getInstance().getUser());
         return customer;
     }
 
@@ -34,6 +36,8 @@ public class CustomerService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Fetched all Customers", UserSingleton.getInstance().getUser());
+
         return null;
     }
 
@@ -43,6 +47,8 @@ public class CustomerService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        AuditLogService.Logger("Deleted Customer"+customer.getName(), UserSingleton.getInstance().getUser());
+
     }
 
     public Customer update(Customer updatedCustomer) {
@@ -51,6 +57,9 @@ public class CustomerService {
         }catch (SQLException e){
             e.printStackTrace();
         }
+
+        AuditLogService.Logger("Updated Customer"+customer.getName(), UserSingleton.getInstance().getUser());
+
         return updatedCustomer;
     }
 
@@ -60,6 +69,8 @@ public class CustomerService {
         }catch (SQLException e){
             e.printStackTrace();
         }
+        AuditLogService.Logger("Found "+customer+" By Name", UserSingleton.getInstance().getUser());
+
         return null;
     }
 }
