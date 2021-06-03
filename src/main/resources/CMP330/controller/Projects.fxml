@@ -92,9 +92,9 @@
                         <AnchorPane fx:id="anchorTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="listOfCustomers" layoutX="33.0" layoutY="45.0" prefHeight="311.0" prefWidth="448.0" />
-                        <Button fx:id="btnDelCustomer" layoutX="34.0" layoutY="376.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="33.0" prefWidth="132.0" text="Delete Project" />
-                        <Button fx:id="btnEditUser" layoutX="191.0" layoutY="376.0" mnemonicParsing="false" onAction="#editSelectedCustomer" prefHeight="33.0" prefWidth="132.0" text="Edit Project" />
-                        <Button fx:id="btnCreateUser" layoutX="349.0" layoutY="376.0" mnemonicParsing="false" onAction="#createNewCustomer" prefHeight="33.0" prefWidth="132.0" text="Create Project" />
+                        <Button fx:id="btnDel" layoutX="34.0" layoutY="376.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="33.0" prefWidth="132.0" text="Delete Project" />
+                        <Button fx:id="btnEdit" layoutX="191.0" layoutY="376.0" mnemonicParsing="false" onAction="#editSelectedCustomer" prefHeight="33.0" prefWidth="132.0" text="Edit Project" />
+                        <Button fx:id="btnCreate" layoutX="349.0" layoutY="376.0" mnemonicParsing="false" onAction="#createNewCustomer" prefHeight="33.0" prefWidth="132.0" text="Create Project" />
                      </children></AnchorPane>
                   <AnchorPane fx:id="anchorForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;" visible="false">
                      <children>

@@ -7,6 +7,7 @@ import CMP330.Utils.UserSingleton;
 import CMP330.database.ProjectService;
 import CMP330.database.TaskService;
 import CMP330.database.UserService;
+import CMP330.gui.WindowManager;
 import CMP330.model.Project;
 import CMP330.model.Tasks;
 import CMP330.model.User;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -88,6 +90,9 @@ public class DashboardController extends LayoutController {
 
     @Inject
     UserService userService;
+
+    @Inject
+    WindowManager windowManager;
     //endregion
 
     @Override
@@ -348,13 +353,25 @@ public class DashboardController extends LayoutController {
 
     private void addProjectStatusToComboBox(ComboBox<String> inpTStatus) {
         for (Project.PROJECT_STATUS project_status : Project.PROJECT_STATUS_ARRAY) {
-            inpTStatus.getItems().add(project_status.getStatus());
+            // Remove the complete option if they are a researcher
+            if(!(this.user.getRole().equals(User.USER_ROLES.SYS_ADMIN)) && project_status.getStatus().equals(Project.PROJECT_STATUS.COMPLETED)) break;
+
+                inpTStatus.getItems().add(project_status.getStatus());
+
         }
     }
 
     private void addUsersToComboBox(ComboBox<String> comboBox) {
         for(User user: this.allUsers){
             comboBox.getItems().add(user.getName());
+        }
+    }
+    @FXML
+    private void navNotes(){
+        Stage stage = (Stage) navLogs.getScene().getWindow();
+        stage.close();
+        if(UserSingleton.getInstance().getUser().getRole().equals(User.USER_ROLES.SYS_ADMIN)){
+            windowManager.setRoot(WindowManager.SCENES.NOTES_SCREEN);
         }
     }
 }

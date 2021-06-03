@@ -49,11 +49,6 @@
          </Label>
          <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Button fx:id="btnSignup" mnemonicParsing="false" onAction="#sendToRegister" text="Signup">
-                  <HBox.margin>
-                     <Insets left="75.0" />
-                  </HBox.margin>
-               </Button>
                <Button fx:id="bntLogin" alignment="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#loginUser" text="Login">
                   <HBox.margin>
                      <Insets left="5.0" />

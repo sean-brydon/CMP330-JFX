@@ -19,6 +19,7 @@ public class Database {
     private Dao<Project, Integer> projectDao;
     private Dao<Tasks, Integer> taskDao;
     private Dao<User, Integer> userDao;
+    private Dao<Note, Integer> noteDao;
     private ConnectionSource connectionSource;
 
     // Handle Connection
@@ -44,6 +45,7 @@ public class Database {
         projectDao = DaoManager.createDao(connectionSource, Project.class);
         taskDao = DaoManager.createDao(connectionSource, Tasks.class);
         userDao = DaoManager.createDao(connectionSource, User.class);
+        noteDao = DaoManager.createDao(connectionSource, Note.class);
         // Setup classes
 
         setupTablesIfNotExist(connectionSource);
@@ -56,6 +58,7 @@ public class Database {
         TableUtils.createTableIfNotExists(connectionSource, Project.class);
         TableUtils.createTableIfNotExists(connectionSource, Tasks.class);
         TableUtils.createTableIfNotExists(connectionSource, User.class);
+        TableUtils.createTableIfNotExists(connectionSource, Note.class);
     }
 
     // Get connection property
@@ -87,5 +90,8 @@ public class Database {
 
     public Dao<User, Integer> getUserDao() {
         return userDao;
+    }
+    public Dao<Note, Integer> getNoteDao() {
+        return noteDao;
     }
 }

@@ -2,9 +2,12 @@ package CMP330.controller;
 
 import CMP330.Utils.DateFns;
 import CMP330.Utils.UserSingleton;
-import CMP330.database.CustomerService;
+import CMP330.database.NoteService;
+import CMP330.database.ProjectService;
 import CMP330.gui.WindowManager;
 import CMP330.model.Customer;
+import CMP330.model.Note;
+import CMP330.model.Project;
 import CMP330.model.User;
 import com.google.inject.Inject;
 import javafx.collections.FXCollections;
@@ -18,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomersController extends LayoutController {
+public class NoteController extends LayoutController {
 
     @FXML
     TableView listOfCustomers;
@@ -35,24 +38,23 @@ public class CustomersController extends LayoutController {
     @FXML
     Label lblUserManagement;
     @FXML
-    TextField inpName;
+    TextField inpNote;
     @FXML
-    TextField inpEmail;
-    @FXML
-    TextField inpPostcode;
-    @FXML
-    TextField inpAddress;
+    ComboBox inpProject;
 
     @Inject
-    CustomerService customerService; // This could be removed if the LayoutController userService was set to protected however
+    NoteService noteService;
+
+    @Inject
+    ProjectService projectService;
 
     @Inject
     WindowManager windowManager; // This could be removed if the LayoutController userService was set to protected however
-    private List<Customer> allCustomers;
+    private List<Note> allNotes;
     private User currentUser;
 
     private Boolean editState = false;
-    private Customer selectedCustomer;
+    private Note selectedNote;
 
     @FXML
     @Override
@@ -61,18 +63,8 @@ public class CustomersController extends LayoutController {
 
         // Get all Customers on load and populate list
         populateTable();
-
-        if(permissionCheck(User.USER_ROLES.SYS_ADMIN) || permissionCheck(User.USER_ROLES.OFFICE_ADMIN)){
-            btnDelCustomer.setDisable(false);
-            btnCreateUser.setDisable(false);
-            btnEditUser.setDisable(false);
-        }else{
-            btnDelCustomer.setDisable(true);
-            btnCreateUser.setDisable(true);
-            btnEditUser.setDisable(true);
-        }
-
-
+        btnDelCustomer.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        btnEditUser.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
 
     }
 
@@ -83,43 +75,35 @@ public class CustomersController extends LayoutController {
 
     private void populateTable() {
         // This is moved here so we can Prefetch the data easily when we preform any CRUD actions on the user
-        this.allCustomers = this.customerService.getAllCustomers();
+        this.allNotes = this.noteService.getAllNotes();
         // Creat columns for users
         TableColumn<Map, String> idColumn = new TableColumn<>("id");
-        idColumn.setCellValueFactory(new MapValueFactory<>("customerId"));
+        idColumn.setCellValueFactory(new MapValueFactory<>("id"));
 
-        TableColumn<Map, String> nameColumn = new TableColumn<>("name");
-        nameColumn.setCellValueFactory(new MapValueFactory<>("name"));
+        TableColumn<Map, String> textCol = new TableColumn<>("text");
+        textCol.setCellValueFactory(new MapValueFactory<>("text"));
 
-        TableColumn<Map, String> addressColumn = new TableColumn<>("address");
-        addressColumn.setCellValueFactory(new MapValueFactory<>("address"));
-
-        TableColumn<Map, String> postcodeColumn = new TableColumn<>("postcode");
-        postcodeColumn.setCellValueFactory(new MapValueFactory<>("postcode"));
-
-        TableColumn<Map, String> emailColumn = new TableColumn<>("email");
-        emailColumn.setCellValueFactory(new MapValueFactory<>("email"));
+        TableColumn<Map, String> projectColumn = new TableColumn<>("project");
+        projectColumn.setCellValueFactory(new MapValueFactory<>("project"));
 
         TableColumn<Map, String> createdAt = new TableColumn<>("createdAt");
         createdAt.setCellValueFactory(new MapValueFactory<>("createdAt"));
         this.listOfCustomers.getColumns().add(idColumn);
-        this.listOfCustomers.getColumns().add(nameColumn);
-        this.listOfCustomers.getColumns().add(emailColumn);
-        this.listOfCustomers.getColumns().add(postcodeColumn);
-        this.listOfCustomers.getColumns().add(addressColumn);
+        this.listOfCustomers.getColumns().add(textCol);
+
+        this.listOfCustomers.getColumns().add(projectColumn);
         this.listOfCustomers.getColumns().add(createdAt);
         // Create an observable list to add customers to
         ObservableList<Map<String, Object>> items = FXCollections.<Map<String, Object>>observableArrayList();
 
-        this.allCustomers.forEach(customer -> {
-            Map<String, Object> customerObj = new HashMap<>();
+        this.allNotes.forEach(note -> {
+            Map<String, Object> noteObj = new HashMap<>();
             // Forces int to be string to be converted back to int
-            customerObj.put("customerId", String.valueOf(customer.getCustomerId()));
-            customerObj.put("name", customer.getName());
-            customerObj.put("email", customer.getEmail());
-            customerObj.put("postcode", customer.getPostcode());
-            customerObj.put("address", customer.getAddress());
-            items.add(customerObj);
+            noteObj.put("id", String.valueOf(note.getId()));
+            noteObj.put("text", note.getText());
+            noteObj.put("project", note.getProject().getTitle());
+            noteObj.put("createdAt", note.getCreatedAt());
+            items.add(noteObj);
         });
 
         // Add all the users to the table
@@ -127,10 +111,10 @@ public class CustomersController extends LayoutController {
     }
 
     @FXML
-    private void deleteCustomer() {
-        Customer customer = getCustomerFromSelection();
+    private void deleteNote() {
+        Note note = getNoteFromSelection();
 
-        this.customerService.delete(customer);
+        this.noteService.delete(note);
 
 
         windowManager.setRoot(WindowManager.SCENES.CUSTOMER_MANAGEMENT_SCREEN);
@@ -139,18 +123,17 @@ public class CustomersController extends LayoutController {
 
 
     @FXML
-    private void editSelectedCustomer() {
-        this.selectedCustomer = getCustomerFromSelection();
+    private void editSelected() {
+        this.selectedNote = getNoteFromSelection();
         this.editState = true;
         this.anchorForm.setVisible(true);
         this.anchorTable.setVisible(false);
         lblUserManagement.setText("Edit Customer");
 
         // Populate fields
-        inpName.setText(this.selectedCustomer.getName());
-        inpEmail.setText(this.selectedCustomer.getEmail());
-        inpPostcode.setText(this.selectedCustomer.getPostcode());
-        inpAddress.setText(this.selectedCustomer.getAddress());
+        inpNote.setText(this.selectedNote.getText());
+        inpProject.getItems().add(this.selectedNote.getProject().getTitle());
+        inpProject.getSelectionModel().selectFirst();
 
     }
 
@@ -159,39 +142,48 @@ public class CustomersController extends LayoutController {
         this.editState = false;
         this.anchorForm.setVisible(true);
         this.anchorTable.setVisible(false);
-        lblUserManagement.setText("Create Customer");
+        lblUserManagement.setText("Create Note");
+
+        for (Project project : this.projectService.getAllProjects()
+        ) {
+            inpProject.getItems().add(project.getTitle());
+
+        }
+
     }
 
-    private Customer getCustomerFromSelection() {
+    private Note getNoteFromSelection() {
         TableView.TableViewSelectionModel selectionModel = this.listOfCustomers.getSelectionModel();
         HashMap<String, String> selected = (HashMap<String, String>) selectionModel.getSelectedItem();
 
-        Customer customer = new Customer(parseIntOrNull(selected.get("customerId")),
+        Note note = new Note(parseIntOrNull(selected.get("id")),
+                selected.get("text"),
                 selected.get("createdAt"),
                 DateFns.customDateFormat(DateFns.DateFormatOptions.Default),
-                selected.get("address"),
-                selected.get("postcode"),
-                selected.get("email"),
-                selected.get("name"));
+                this.projectService.getProjectsByTitle(selected.get("project")),
+                this.currentUser);
         // This was the easiest way to get the id back to an int.
-        return customer;
+        return note;
     }
 
     @FXML
     private void onSaveEvent() {
         if (this.editState) {
-            Customer updatedCustomer = this.selectedCustomer;
-            updatedCustomer.setEmail(inpEmail.getText());
-            updatedCustomer.setName(inpName.getText());
-            updatedCustomer.setPostcode(inpPostcode.getText());
-            updatedCustomer.setPostcode(inpAddress.getText());
+            Note updatedNote = this.selectedNote;
+            updatedNote.setText(inpNote.getText());
+            updatedNote.setProject(this.selectedNote.getProject());
 
-            updatedCustomer.setUpdatedAt(DateFns.customDateFormat(DateFns.DateFormatOptions.Default));
-            this.customerService.update(updatedCustomer);
+            updatedNote.setUpdatedAt(DateFns.customDateFormat(DateFns.DateFormatOptions.Default));
+            this.noteService.update(updatedNote);
         } else {
             String date = DateFns.customDateFormat(DateFns.DateFormatOptions.Default);
-            Customer newCustomer = new Customer(date,date,inpAddress.getText(),inpPostcode.getText(),inpEmail.getText(),inpName.getText());
-            this.customerService.create(newCustomer);
+            Note newNote = new Note(
+                    inpNote.getText(),
+                    date,
+                    date,
+                    this.projectService.getProjectsByTitle(inpProject.getValue().toString()),
+                    this.currentUser);
+            this.noteService.create(newNote);
         }
         this.anchorForm.setVisible(false);
         this.anchorTable.setVisible(true);

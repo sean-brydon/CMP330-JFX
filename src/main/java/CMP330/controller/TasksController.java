@@ -27,7 +27,11 @@ public class TasksController extends LayoutController {
     @FXML
     TableView listOfTasks;
     @FXML
-    Button btnDelCustomer;
+    Button btnDel;
+    @FXML
+    Button btnEdit;
+    @FXML
+    Button btnCreate;
     @FXML
     AnchorPane anchorForm;
     @FXML
@@ -70,8 +74,20 @@ public class TasksController extends LayoutController {
         populateTable();
 
         // Populate fields
-        btnDelCustomer.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        if (permissionCheck(User.USER_ROLES.SYS_ADMIN)) {
+            btnDel.setDisable(false);
+            btnCreate.setDisable(false);
+            btnEdit.setDisable(false);
+        } else if (permissionCheck(User.USER_ROLES.OFFICE_ADMIN)) {
+            btnDel.setDisable(false);
+            btnCreate.setDisable(true);
+            btnEdit.setDisable(true);
+        } else {
+            btnDel.setDisable(true);
+            btnCreate.setDisable(true);
+            btnEdit.setDisable(true);
 
+        }
     }
 
     private Boolean permissionCheck(User.USER_ROLES requiredRole) {

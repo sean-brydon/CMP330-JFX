@@ -26,7 +26,11 @@ public class ProjectsController extends LayoutController {
     @FXML
     TableView listOfCustomers;
     @FXML
-    Button btnDelCustomer;
+    Button btnDel;
+    @FXML
+    Button btnEdit;
+    @FXML
+    Button btnCreate;
     @FXML
     AnchorPane anchorForm;
     @FXML
@@ -72,8 +76,20 @@ public class ProjectsController extends LayoutController {
         // Populate fields
 
 
-        btnDelCustomer.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        if (permissionCheck(User.USER_ROLES.SYS_ADMIN)) {
+            btnDel.setDisable(false);
+            btnCreate.setDisable(false);
+            btnEdit.setDisable(false);
+        } else if (permissionCheck(User.USER_ROLES.OFFICE_ADMIN)) {
+            btnDel.setDisable(false);
+            btnCreate.setDisable(false);
+            btnEdit.setDisable(false);
+        } else {
+            btnDel.setDisable(true);
+            btnCreate.setDisable(true);
+            btnEdit.setDisable(true);
 
+        }
     }
 
     private Boolean permissionCheck(User.USER_ROLES requiredRole) {
@@ -156,6 +172,7 @@ public class ProjectsController extends LayoutController {
         inpTitle.setText(this.selectedProject.getTitle());
         for (Project.PROJECT_STATUS status : Project.PROJECT_STATUS_ARRAY
         ) {
+            if(permissionCheck(User.USER_ROLES.OFFICE_ADMIN) && status.getStatus().equals(Project.PROJECT_STATUS.COMPLETED)) break;
             this.inpStatus.getItems().add(status.getStatus());
         }
         for (User user : this.userService.getAllUsers()
@@ -177,6 +194,7 @@ public class ProjectsController extends LayoutController {
 
         for (Project.PROJECT_STATUS status : Project.PROJECT_STATUS_ARRAY
         ) {
+            if(permissionCheck(User.USER_ROLES.OFFICE_ADMIN) && status.getStatus().equals(Project.PROJECT_STATUS.COMPLETED)) break;
             this.inpStatus.getItems().add(status.getStatus());
         }
         for (User user : this.userService.getAllUsers()
@@ -184,7 +202,7 @@ public class ProjectsController extends LayoutController {
             this.inpHeadResearcher.getItems().add(user.getName());
             this.inpResearcher.getItems().add(user.getName());
         }
-        for (Customer customer   : this.customerService.getAllCustomers()
+        for (Customer customer : this.customerService.getAllCustomers()
         ) {
             this.inpCustomer.getItems().add(customer.getName());
         }

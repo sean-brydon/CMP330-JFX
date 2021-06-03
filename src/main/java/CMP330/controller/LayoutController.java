@@ -113,9 +113,19 @@ public abstract class LayoutController {
     @FXML
     private void navLogs(){
         Stage stage = (Stage) navLogs.getScene().getWindow();
-        stage.close();
-        if(UserSingleton.getInstance().getUser().getRole().equals(User.USER_ROLES.SYS_ADMIN)){
+        System.out.println("Here");
+        if (UserSingleton.getInstance().getUser().getRole().equals("System Admin")) {
+            stage.close();
+
             windowManager.setRoot(WindowManager.SCENES.AUDIT_LOG_SCREEN);
-        }
+        } else return;
+    }
+
+    @FXML
+    private void navNotes(){
+        Stage stage = (Stage) navLogs.getScene().getWindow();
+        stage.close();
+            windowManager.setRoot(WindowManager.SCENES.NOTES_SCREEN);
+
     }
 }

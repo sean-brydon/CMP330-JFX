@@ -28,7 +28,11 @@ public class UserManagmentController extends LayoutController{
     @FXML
     TableView listOfUsers;
     @FXML
-    Button btnDelUser;
+    Button btnDel;
+    @FXML
+    Button btnEdit;
+    @FXML
+    Button btnCreate;
     @FXML
     AnchorPane anchorForm;
     @FXML
@@ -63,7 +67,15 @@ public class UserManagmentController extends LayoutController{
         // Get all users on load and populate list
         // Storing users to state to allow filtering of the whole array - Useful when passing the UID to a new form.
         populateTable();
-        btnDelUser.setDisable(!permissionCheck(User.USER_ROLES.SYS_ADMIN));
+        if(permissionCheck(User.USER_ROLES.SYS_ADMIN)){
+            btnDel.setDisable(false);
+            btnCreate.setDisable(false);
+            btnEdit.setDisable(false);
+        }else{
+            btnDel.setDisable(true);
+            btnCreate.setDisable(true);
+            btnEdit.setDisable(true);
+        }
         // Add items roles to the edit/create new box
         for (User.USER_ROLES role : User.allRoles) {
             this.inpRole.getItems().add(role.getRole());
@@ -151,7 +163,6 @@ public class UserManagmentController extends LayoutController{
     }
     @FXML
     private void createNewUser(){
-        this.selectedUser = getUserFromSelection();
         this.editState = false;
         this.anchorForm.setVisible(true);
         this.anchorTable.setVisible(false);

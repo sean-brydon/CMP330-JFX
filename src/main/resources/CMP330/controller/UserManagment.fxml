@@ -30,7 +30,7 @@
                                 </AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                                     <children>
-                                        <Button fx:id="navDash" layoutX="45.0" layoutY="1.0" mnemonicParsing="false" style="-fx-background-color: #ebebeb;" text="Dashboard" onAction="#navDash">
+                                        <Button fx:id="navDash" layoutX="45.0" layoutY="1.0" mnemonicParsing="false" onAction="#navDash" style="-fx-background-color: #ebebeb;" text="Dashboard">
                                             <effect>
                                                 <ColorAdjust />
                                             </effect>
@@ -92,9 +92,9 @@
                         <AnchorPane fx:id="anchorTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <TableView fx:id="listOfUsers" layoutX="33.0" layoutY="45.0" prefHeight="311.0" prefWidth="448.0" />
-                        <Button fx:id="btnDelUser" layoutX="34.0" layoutY="376.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="33.0" prefWidth="132.0" text="Delete Selected User" />
-                        <Button fx:id="btnEditUser" layoutX="191.0" layoutY="376.0" mnemonicParsing="false" onAction="#editSelectedUser" prefHeight="33.0" prefWidth="132.0" text="Edit Selected User" />
-                        <Button fx:id="btnCreateUser" layoutX="349.0" layoutY="376.0" mnemonicParsing="false" onAction="#createNewUser" prefHeight="33.0" prefWidth="132.0" text="Create New User" />
+                        <Button fx:id="btnDel" layoutX="34.0" layoutY="376.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="33.0" prefWidth="132.0" text="Delete Selected User" />
+                        <Button fx:id="btnEdit" layoutX="191.0" layoutY="376.0" mnemonicParsing="false" onAction="#editSelectedUser" prefHeight="33.0" prefWidth="132.0" text="Edit Selected User" />
+                        <Button fx:id="btnCreate" layoutX="349.0" layoutY="376.0" mnemonicParsing="false" onAction="#createNewUser" prefHeight="33.0" prefWidth="132.0" text="Create New User" />
                      </children></AnchorPane>
                   <AnchorPane fx:id="anchorForm" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="570.0" style="-fx-background-color: #ebebeb;" visible="false">
                      <children>
